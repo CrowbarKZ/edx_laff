@@ -39,10 +39,10 @@ class Vector:
         return self._compute_elementwise(other, sub)
 
     def __mul__(self, other: Number) -> 'Vector':
-        return Vector(*(vi * other for vi in self.coords))
+        return Vector(vi * other for vi in self.coords)
 
     def __rmul__(self, other: Number) -> 'Vector':
-        return Vector(*(vi * other for vi in self.coords))
+        return Vector(vi * other for vi in self.coords)
 
     def dot(self, other: 'Vector') -> Number:
         multiplied = self._compute_elementwise(other, mul)
