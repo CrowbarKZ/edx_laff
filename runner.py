@@ -1,12 +1,17 @@
-from primitives import Vector
+from primitives import Vector, Matrix
 
 
 if __name__ == '__main__':
-    a = Vector(3, 5)
-    b = Vector(1, 2)
+    x = Vector(1, -2, 3)
+    print(x)
 
-    print(a, b)
-    print(a + b)
-    print(a - b)
-    print(a * 2)
-    print(a == b, a == a)
+    rows = [
+        [0, 0, 0],
+        [1, 1, 1],
+        [2, 2, 2],
+        [3, 3, 3],
+    ]
+    A = Matrix(rows=rows)
+    print(A)
+
+    print(A * x)

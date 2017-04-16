@@ -25,21 +25,24 @@ def test_creation():
 
 
 def test_getting_subvector():
-    assert a[1] == Vector(a.coords[1])
-    assert a[2:5] == Vector(*a.coords[2:5])
-    assert a[-4] == Vector(a.coords[-4])
+    assert a[1] == Vector(a.components[1])
+    assert a[2:5] == Vector(*a.components[2:5])
+    assert a[-4] == Vector(a.components[-4])
 
 
 def test_addition():
-    assert a + b == Vector(*map(add, a_coords, b_coords))
+    assert a + b == Vector(map(add, a_coords, b_coords))
+    assert a + b == b + a
 
 
 def test_subtraction():
-    assert a - b == Vector(*map(sub, a_coords, b_coords))
+    assert a - b == Vector(map(sub, a_coords, b_coords))
+    assert a - b == -1 * (b - a)
 
 
 def test_multiplication():
-    assert a * scalar == Vector(*(ai * scalar for ai in a.coords))
+    assert a * scalar == Vector(ai * scalar for ai in a.components)
+    assert scalar * a == Vector(ai * scalar for ai in a.components)
 
 
 def test_equality():
@@ -48,11 +51,12 @@ def test_equality():
 
 
 def test_size():
-    assert len(a) == len(a.coords)
+    assert len(a) == len(a.components)
 
 
 def test_dot():
     assert a.dot(b) == sum(map(mul, a_coords, b_coords))
+    assert a.dot(b) == b.dot(a)
 
     # assert almost equal due to float precision loss sometimes
     # https://docs.python.org/3.6/tutorial/floatingpoint.html
