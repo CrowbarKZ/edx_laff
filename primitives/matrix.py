@@ -1,12 +1,16 @@
+from itertools import chain
 from numbers import Number
+from typing import Iterable, Tuple
+
 from primitives import Vector
-from typing import Iterable
 
 
 class Matrix:
     """
     Simple matrix class
-    Stores components as tuple of tuples (for consistency)
+    Stores components as tuple of tuples (tuple of rows)
+
+    Rounds all component values to certain set decimal digit, for ez testing
     """
     def __init__(self, rows: Iterable[Iterable[Number]] = None,
                  cols: Iterable[Iterable[Number]] = None):
@@ -39,3 +43,19 @@ class Matrix:
 
     def __eq__(self, other: 'Matrix'):
         return self.components == other.components
+
+    def _isclose(self, other: 'Matrix') -> bool:
+        """
+        Returns true if the components of both Matrices are close enough
+        """
+        component_results = (
+            a.__isclose(b) for a, b
+            in zip(self.vectorize_rows, other.vectorize_rows)
+        )
+        return reduce(and_, component_results)
+
+    def vectorize_rows(self) -> Iterable[Vector]:
+        """
+        Returns components as iterator where each row is represented by a Vector
+        """
+        return (Vector(row) for row in self.components)

@@ -1,5 +1,5 @@
 from functools import reduce
-from math import sqrt
+from math import sqrt, isclose
 from numbers import Number
 from operator import eq, add, sub, mul, and_
 from typing import Callable, Any
@@ -28,8 +28,17 @@ class Vector:
     def __repr__(self):
         return f'Vector{self.components}'
 
-    def __eq__(self, other):
+    def __eq__(self, other: 'Vector'):
         return self.components == other.components
+
+    def _isclose(self, other: 'Vector') -> bool:
+        """
+        Returns true if the components of both Vectors are close enough
+        """
+        def comparator(a, b):
+            # we are ok if the numbers differ by less than 1/10000
+            return isclose(a, b, rel_tol=0, abs_tol=0.0001)
+        return reduce(and_, self._compute_elementwise(other, comparator).components)
 
     def __getitem__(self, key):
         return Vector(self.components[key])
@@ -71,6 +80,6 @@ class Vector:
         Input vectors must have the same size
         """
         if len(self) == len(other):
-            return Vector(*map(operator, self.components, other.components))
+            return Vector(map(operator, self.components, other.components))
         else:
             raise ValueError('Length of vectors must be the same')

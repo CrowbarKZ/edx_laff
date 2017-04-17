@@ -1,4 +1,8 @@
 import random
+from math import pi
+
+from helpers.comparison import close_enough
+from operations.matrix import rotation_2d
 from primitives import Matrix, Vector
 
 rownum = 10
@@ -40,3 +44,14 @@ def test_matrix_vector_multiplication():
     y = Vector(result)
     assert A * x == y
     assert x * A == y
+
+
+def test_rotation_matrix_2d():
+    y = Vector(1, 0)
+
+    assert close_enough(rotation_2d(deg=90) * y, Vector(0, 1))
+    assert close_enough(rotation_2d(deg=-270) * y, Vector(0, 1))
+    assert close_enough(rotation_2d(deg=170) * y, rotation_2d(deg=-190) * y)
+    assert close_enough(rotation_2d(deg=360) * y, y)
+    assert close_enough(rotation_2d(rad=2 * pi) * y, y)
+

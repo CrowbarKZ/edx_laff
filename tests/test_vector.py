@@ -2,8 +2,9 @@ import random
 from math import sqrt
 from operator import add, sub, mul
 
-from primitives import Vector
+from helpers.comparison import close_enough
 from operations.vector import axpy, linear_combination
+from primitives import Vector
 
 
 # init values, we use random values because the code should work
@@ -50,6 +51,12 @@ def test_equality():
     assert a != a * 2
 
 
+def test_close_enough():
+    assert close_enough(a, a)
+    assert close_enough(a, a + a * 0.00000000000000000000000000001)
+    assert not close_enough(a, a + a * 0.01)
+
+
 def test_size():
     assert len(a) == len(a.components)
 
@@ -60,7 +67,7 @@ def test_dot():
 
     # assert almost equal due to float precision loss sometimes
     # https://docs.python.org/3.6/tutorial/floatingpoint.html
-    assert abs(a.dot(b) - (a[:4].dot(b[:4]) + a[4:].dot(b[4:]))) < 0.000000001
+    assert close_enough(a.dot(b), (a[:4].dot(b[:4]) + a[4:].dot(b[4:])))
 
 def test_axpy():
     assert axpy(scalar, a, b) == a * scalar + b
