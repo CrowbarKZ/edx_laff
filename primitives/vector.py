@@ -1,9 +1,9 @@
+from collections import Iterable
 from functools import reduce
 from math import sqrt, isclose
 from numbers import Number
 from operator import eq, add, sub, mul, and_
 from typing import Callable, Any
-from collections import Iterable
 
 
 class Vector:
@@ -11,6 +11,19 @@ class Vector:
     Simple vector class
     Stores components as a tuple
     """
+    @classmethod
+    def basis_vector(cls, index: int, size: int) -> 'Vector':
+        """
+        Returns the index'th basis vector of given size
+        index starts at 0, e.g. basis_vector(0, 2) == (1, 0)
+        """
+        assert index < size
+
+        components = [0 for _ in range(size)]
+        components[index] = 1
+        return cls(components)
+
+
     def __init__(self, *args):
         """
         Pass Numbers as args to init, or Iterable of Numbers as 1 arg, e.g.

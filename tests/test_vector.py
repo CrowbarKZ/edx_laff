@@ -25,6 +25,11 @@ def test_creation():
     assert Vector(1, 2, 3) == Vector((1, 2, 3)) == Vector([1, 2, 3])
 
 
+def test_basis_vector_creation():
+    assert Vector.basis_vector(0, 2) == Vector(1, 0)
+    assert Vector.basis_vector(3, 6) == Vector(0, 0, 0, 1, 0, 0)
+
+
 def test_getting_subvector():
     assert a[1] == Vector(a.components[1])
     assert a[2:5] == Vector(*a.components[2:5])
