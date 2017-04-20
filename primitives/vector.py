@@ -12,6 +12,13 @@ class Vector:
     Stores components as a tuple
     """
     @classmethod
+    def zero_vector(cls, size: int) -> 'Vector':
+        """
+        Returns the zero vector of given size
+        """
+        return cls(0 for _ in range(size))
+
+    @classmethod
     def basis_vector(cls, index: int, size: int) -> 'Vector':
         """
         Returns the index'th basis vector of given size
@@ -55,6 +62,9 @@ class Vector:
 
     def __getitem__(self, key):
         return Vector(self.components[key])
+
+    def __iter__(self):
+        return self.components.__iter__()
 
     def __len__(self):
         """
