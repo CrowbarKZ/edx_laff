@@ -12,17 +12,17 @@ class Vector:
     Stores components as a tuple
     """
     @classmethod
-    def zero_vector(cls, size: int) -> 'Vector':
+    def zero(cls, size: int) -> 'Vector':
         """
         Returns the zero vector of given size
         """
         return cls(0 for _ in range(size))
 
     @classmethod
-    def basis_vector(cls, index: int, size: int) -> 'Vector':
+    def basis(cls, index: int, size: int) -> 'Vector':
         """
         Returns the index'th basis vector of given size
-        index starts at 0, e.g. basis_vector(0, 2) == (1, 0)
+        index starts at 0, e.g. basis(0, 2) == (1, 0)
         """
         assert index < size
 

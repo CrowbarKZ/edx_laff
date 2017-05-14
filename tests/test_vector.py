@@ -25,20 +25,20 @@ def test_creation():
     assert Vector(1, 2, 3) == Vector((1, 2, 3)) == Vector([1, 2, 3])
 
 
-def test_basis_vector_creation():
-    assert Vector.basis_vector(0, 2) == Vector(1, 0)
-    assert Vector.basis_vector(3, 6) == Vector(0, 0, 0, 1, 0, 0)
+def test_basis_creation():
+    assert Vector.basis(0, 2) == Vector(1, 0)
+    assert Vector.basis(3, 6) == Vector(0, 0, 0, 1, 0, 0)
 
 
-def test_zero_vector_creation():
-    assert Vector.zero_vector(2) == Vector(0, 0)
-    assert Vector.zero_vector(5) == Vector(0, 0, 0, 0, 0)
+def test_zero_creation():
+    assert Vector.zero(2) == Vector(0, 0)
+    assert Vector.zero(5) == Vector(0, 0, 0, 0, 0)
 
 
-def test_vector_splitting_to_basis_vector_products():
-    product_vector = Vector.zero_vector(len(a))
+def test_vector_splitting_to_basis_products():
+    product_vector = Vector.zero(len(a))
     for i, component in enumerate(a):
-        product_vector += Vector.basis_vector(i, len(a)) * component
+        product_vector += Vector.basis(i, len(a)) * component
 
     assert product_vector == a
 

@@ -12,6 +12,20 @@ class Matrix:
 
     Rounds all component values to certain set decimal digit, for ez testing
     """
+    @classmethod
+    def zero(cls, m: int, n: int) -> 'Matrix':
+        """
+        Returns the zero matrix of given dimensions
+        """
+        return cls(rows=(Vector.zero(n) for _ in range(m)))
+
+    @classmethod
+    def identity(cls, m: int) -> 'Matrix':
+        """
+        Returns the identity matrix m by m
+        """
+        return cls(rows=(Vector.basis(i, m) for i in range(m)))
+
     def __init__(self, rows: Iterable[Iterable[Number]] = None,
                  cols: Iterable[Iterable[Number]] = None):
         """

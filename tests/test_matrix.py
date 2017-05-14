@@ -30,6 +30,23 @@ def test_creation():
     assert Matrix(rows=rows2) == Matrix(cols=cols2)
     assert Matrix(rows=rows) == Matrix(cols=cols)
 
+def test_special_matrices_creation():
+    zero3by4 = [
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+    ]
+
+    identity4by4 = [
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1],
+    ]
+
+    assert Matrix.zero(3, 4) == Matrix(rows=zero3by4)
+    assert Matrix.identity(4) == Matrix(rows=identity4by4)
+
 
 def test_getitem():
     assert A[0][0] == rows[0][0]
