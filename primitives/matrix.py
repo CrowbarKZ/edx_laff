@@ -73,3 +73,9 @@ class Matrix:
         Returns components as iterator where each row is represented by a Vector
         """
         return (Vector(row) for row in self.components)
+
+    def transpose(self) -> 'Matrix':
+        """
+        Returns a transposed version of self
+        """
+        return Matrix(cols=self.components)

@@ -47,6 +47,19 @@ def test_special_matrices_creation():
     assert Matrix.zero(3, 4) == Matrix(rows=zero3by4)
     assert Matrix.identity(4) == Matrix(rows=identity4by4)
 
+def test_transposition():
+    source = [
+        [1, 2, 3],
+        [4, 1, 6],
+        [5, 9, 1],
+    ]
+    transposed = [
+        [1, 4, 5],
+        [2, 1, 9],
+        [3, 6, 1],
+    ]
+    assert Matrix(rows=source).transpose() == Matrix(rows=transposed)
+    assert Matrix(rows=source).transpose() == Matrix(cols=source)
 
 def test_getitem():
     assert A[0][0] == rows[0][0]
