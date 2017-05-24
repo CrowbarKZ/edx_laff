@@ -3,6 +3,7 @@ from math import pi
 
 from helpers.comparison import close_enough
 from operations.matrix import rotation_2d
+from operations.vector import axpy
 from primitives import Matrix, Vector
 
 rownum = 10
@@ -74,6 +75,22 @@ def test_matrix_vector_multiplication():
     y = Vector(result)
     assert A * x == y
     assert x * A == y
+
+    # multiply column by column
+    result = Vector.zero(size=rownum)
+    AT = tuple(A.transpose().vectorize_rows())
+    for i in range(rownum):
+        result = result + AT[i] * x.components[i]
+
+    assert result == A * x
+
+    # multiply column by column (using axpy)
+    result = Vector.zero(size=rownum)
+    AT = tuple(A.transpose().vectorize_rows())
+    for i in range(rownum):
+        result = axpy(AT[i], x.components[i], result)
+
+    assert result == A * x
 
 
 def test_rotation_matrix_2d():
